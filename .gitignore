@@ -1,0 +1,5 @@
+platforms/
+*.o
+*.dll
+*.cbp
+*.exe
