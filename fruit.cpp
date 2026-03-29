@@ -5,3 +5,7 @@ void Fruit::onEaten(Jeu& jeu) {
     // score +1 and the snake goes longer
     jeu.upScore();
 }
+void Banana::onEaten(Jeu& game) {
+        Fruit::onEaten(game);
+        game.reverseSnake();
+}

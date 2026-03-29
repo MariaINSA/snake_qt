@@ -47,7 +47,11 @@ class Jeu
 
     //augmenter le score
     void upScore();
+    // creer une nouveau fruit
     void new_fruit();
+
+    //changer l'ordre de le snake
+    void reverseSnake();
 
     // Retourne la direction
     Direction getDirection() const;

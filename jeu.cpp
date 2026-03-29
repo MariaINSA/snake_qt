@@ -126,8 +126,6 @@ void Jeu::evolue()
 	list<Position>::iterator itSnake;
     
     //typedef enum {GAUCHE, HAUT,DROITE, BAS} Direction;
-
-
     int depX[] = {-1, 0, 1, 0};
     int depY[] = {0, -1, 0, 1};
 
@@ -136,13 +134,13 @@ void Jeu::evolue()
 
     if (posValide(posTest))
     {
+        snake.push_front(posTest);
         if(posTest!=currFruit->getPos()){
             snake.pop_back();
         }else{ //procedure for eaten fruit (varies for fruit)
             currFruit->onEaten(*this);
             this->new_fruit();
         }
-        snake.push_front(posTest);
     }
 }
 
@@ -190,7 +188,6 @@ void Jeu::setDirection(Direction dir)
 void Jeu::upScore()
 {
     score++;
-    //snake goes longer
     cout<<"New score is "<<score<<endl;
 
 }
@@ -223,6 +220,22 @@ void Jeu::new_fruit() {
             currFruit = new Fraise(posTest, FRAISE); break;
     }
 
+}
+
+void Jeu::reverseSnake() {
+    //on utilise la fonction
+    snake.reverse();
+
+    // Faut changer selon la position de la tail (ou dans ce cas, la tete)
+    if (snake.size() >= 2) {
+        list<Position>::const_iterator tete = snake.begin();
+        list<Position>::const_iterator neck = std::next(tete);
+
+        if (tete->x < neck->x)      dirSnake = GAUCHE;
+        else if (tete->x > neck->x) dirSnake = DROITE;
+        else if (tete->y < neck->y) dirSnake = HAUT;
+        else if (tete->y > neck->y) dirSnake = BAS;
+    }
 }
 
 const Fruit* Jeu::getFruit() const{

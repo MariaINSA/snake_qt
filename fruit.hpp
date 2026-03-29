@@ -27,10 +27,10 @@ protected:
 class Banana : public Fruit {
 public:
     using Fruit::Fruit; // Inherit the constructor
-    void onEaten(Jeu& game) override {
+    void onEaten(Jeu& game) override;/* {
         Fruit::onEaten(game); // Still get the score!
-        //game.reverseSnake();  // Special banana power
-    }
+        game.reverseSnake();  // Special banana power
+    }*/
 };
 
 class Fraise : public Fruit {
