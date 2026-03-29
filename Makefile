@@ -11,7 +11,7 @@ LIBS = -lQt5Widgets -lQt5Gui -lQt5Core
 
 default: $(FINAL_TARGET)
 
-$(FINAL_TARGET): jeu.o main.o snakewindow.o
+$(FINAL_TARGET): jeu.o main.o snakewindow.o fruit.o position.o
 	$(LD) $+ -o $@ $(LDFLAGS) $(LIB_DIR) $(LIBS)
 
 %.o: %.cpp
