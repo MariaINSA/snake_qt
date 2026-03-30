@@ -13,9 +13,12 @@ class Jeu
     Case *terrain;
     int largeur, hauteur; // Nombre de cases en largeur et en hauteur
     std::list<Position> snake;
-    Direction dirSnake;
-    int score;
-    Fruit *currFruit; bool mangeFruit;
+    std::list<Position> snake2;
+    Direction dirSnake, dirSnake2;
+    bool mort1, mort2;
+    bool mangeur; //who ate the fruit?? 0-> 1, 1->2
+    int score, score2;
+    Fruit *currFruit; // bool mangeFruit;
 
   public:
     Jeu();
@@ -36,14 +39,29 @@ class Jeu
 
     // Retourne la liste des elements du serpent en lecture seule
     const std::list<Position> &getSnake() const;
+    const std::list<Position> &getSnake2() const;
     // Retourne la fruit en lecture seule
     const Fruit* getFruit() const;
 
     // Indique si la case a une position donnee existe et est libre
     bool posValide(const Position &) const;
+    bool posValide2(const Position &) const;
 
     // Modifie la direction
     void setDirection(Direction);
+    void setDirection2(Direction);
+
+    bool getMort1() const;
+    bool getMort2() const;
+
+    int getScore1() const;
+    int getScore2() const;
+
+    //ajouter mur
+    void ajouterMur();
+    //suprimer mur
+    void supprimerMur();
+
 
     //augmenter le score
     void upScore();
@@ -55,6 +73,7 @@ class Jeu
 
     // Retourne la direction
     Direction getDirection() const;
+    Direction getDirection2() const;
 
 };
 
