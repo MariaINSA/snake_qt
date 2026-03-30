@@ -282,13 +282,13 @@ void SnakeWindow::keyPressEvent(QKeyEvent *event)
     // joueur 2 : zqsd
     if (!jeu.getMort2())
     {
-        if (event->key() == Qt::Key_A){ //Qt::Key_Q){
+        if (event->key() == Qt::Key_Q){
             key_dir=GAUCHE; joueur=2;
-        } else if (event->key() ==Qt::Key_D){ //Qt::Key_D){
+        } else if (event->key() == Qt::Key_D){
             key_dir=DROITE; joueur=2;
-        } else if (event->key() == Qt::Key_W){//Qt::Key_Z){
+        } else if (event->key() == Qt::Key_Z){
             key_dir=HAUT; joueur=2;
-        } else if (event->key() ==Qt::Key_S){ // Qt::Key_S){
+        } else if (event->key() == Qt::Key_S){
             key_dir=BAS; joueur=2;
         }
     }
