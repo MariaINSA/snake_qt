@@ -45,7 +45,6 @@ class Jeu
 
     // Indique si la case a une position donnee existe et est libre
     bool posValide(const Position &) const;
-    bool posValide2(const Position &) const;
 
     // Modifie la direction
     void setDirection(Direction);

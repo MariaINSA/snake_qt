@@ -263,19 +263,19 @@ void SnakeWindow::paintEvent(QPaintEvent *)
 void SnakeWindow::keyPressEvent(QKeyEvent *event)
 {
     Direction key_dir;
-    bool joueur; //0 for 1 et 1 for 2
+    int joueur=0; //0 for none, 1for 1 et 2 for 2
 
     // joueur 1 : fleches
     if (!jeu.getMort1())
     {
         if (event->key() == Qt::Key_Left){
-            key_dir=GAUCHE; joueur=0;
+            key_dir=GAUCHE; joueur=1;
         } else if (event->key() == Qt::Key_Right){
-            key_dir=DROITE; joueur=0;
+            key_dir=DROITE; joueur=1;
         } else if (event->key() == Qt::Key_Up){
-            key_dir=HAUT; joueur=0;
+            key_dir=HAUT; joueur=1;
         } else if (event->key() == Qt::Key_Down){
-            key_dir=BAS; joueur=0;
+            key_dir=BAS; joueur=1;
         }
     }
 
@@ -283,21 +283,21 @@ void SnakeWindow::keyPressEvent(QKeyEvent *event)
     if (!jeu.getMort2())
     {
         if (event->key() == Qt::Key_A){ //Qt::Key_Q){
-            key_dir=GAUCHE; joueur=1;
+            key_dir=GAUCHE; joueur=2;
         } else if (event->key() ==Qt::Key_D){ //Qt::Key_D){
-            key_dir=DROITE; joueur=1;
+            key_dir=DROITE; joueur=2;
         } else if (event->key() == Qt::Key_W){//Qt::Key_Z){
-            key_dir=HAUT; joueur=1;
+            key_dir=HAUT; joueur=2;
         } else if (event->key() ==Qt::Key_S){ // Qt::Key_S){
-            key_dir=BAS; joueur=1;
+            key_dir=BAS; joueur=2;
         }
     }
 
     //just to check if it is not the contrary direction
-    if (!joueur){
+    if (joueur==1){
         if (jeu.getDirection() != (key_dir+2)%4)
             jeu.setDirection(key_dir);
-    }else{
+    }else if(joueur==2){
         if (jeu.getDirection2() != (key_dir+2)%4)
             jeu.setDirection2(key_dir);
     }

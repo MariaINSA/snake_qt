@@ -291,20 +291,14 @@ bool Jeu::posValide(const Position &pos) const
         while (itSnake!=snake.end() && *itSnake!=pos)
             itSnake++;
         return (itSnake==snake.end());
+
+        itSnake = snake2.begin();
+        while (itSnake!=snake2.end() && *itSnake!=pos)
+            itSnake++;
+        return (itSnake==snake2.end());
     }
     else
         return false;
-}
-
-bool Jeu::posValide2(const Position &pos) const
-{
-    if (pos.x < 0 || pos.x >= largeur || pos.y < 0 || pos.y >= hauteur)
-        return false;
-    if (terrain[pos.y * largeur + pos.x] != VIDE)
-        return false;
-    for (const Position &s : snake)  if (s == pos) return false;
-    for (const Position &s : snake2) if (s == pos) return false;
-    return true;
 }
 
 void Jeu::setDirection(Direction dir){ dirSnake = dir;}
@@ -342,15 +336,11 @@ void Jeu::supprimerMur()
         terrain[murs[rand() % murs.size()]] = VIDE;
 }
 
-void Jeu::upScore()
-{
-
+void Jeu::upScore(){
     if (!mangeur)
         score++;
     else
         score2++;
-    cout<<"New score is "<<score<<" "<<score2<<endl;
-
 }
 
 void Jeu::new_fruit() {
