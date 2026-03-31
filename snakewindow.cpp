@@ -212,6 +212,8 @@ void SnakeWindow::paintEvent(QPaintEvent *)
         list<Position>::const_iterator itSnake;
         for (itSnake=snake.begin(); itSnake!=snake.end(); itSnake++){
             QPixmap curr=this->getMap(itSnake,snake);
+            // serpent 1 : jaune si drill, normal sinon
+            curr = jeu.getDrill1() ? coloriser(curr, QColor(255, 215, 0, 160)):curr;
             // serpent 1 : gris si mort, normal sinon
             curr= jeu.getMort1() ? coloriser(curr,  QColor(150, 150, 150, 180)) : curr;
             painter.drawPixmap(itSnake->x*largeurCase, itSnake->y*hauteurCase + HAUTEUR_BOUTONS, curr);
@@ -223,6 +225,8 @@ void SnakeWindow::paintEvent(QPaintEvent *)
         list<Position>::const_iterator itSnake;
         for (itSnake=snake2.begin(); itSnake!=snake2.end(); itSnake++){
             QPixmap curr=this->getMap(itSnake,snake2);
+            // serpent 2 : jaune si drill, normal sinon
+            curr = jeu.getDrill2() ? coloriser(curr, QColor(255, 215, 0, 160)):curr;
             // serpent 1 : gris si mort, normal sinon
             curr= jeu.getMort2() ? coloriser(curr,  QColor(150, 150, 150, 180)) : curr;
             painter.drawPixmap(itSnake->x*largeurCase, itSnake->y*hauteurCase + HAUTEUR_BOUTONS, curr);
@@ -282,13 +286,13 @@ void SnakeWindow::keyPressEvent(QKeyEvent *event)
     // joueur 2 : zqsd
     if (!jeu.getMort2())
     {
-        if (event->key() == Qt::Key_Q){
+        if (event->key() ==Qt::Key_A){ //Qt::Key_Q){
             key_dir=GAUCHE; joueur=2;
-        } else if (event->key() == Qt::Key_D){
+        } else if (event->key() ==Qt::Key_D){ //Qt::Key_D){
             key_dir=DROITE; joueur=2;
-        } else if (event->key() == Qt::Key_Z){
+        } else if (event->key() == Qt::Key_W){ //Qt::Key_Z){
             key_dir=HAUT; joueur=2;
-        } else if (event->key() == Qt::Key_S){
+        } else if (event->key() == Qt::Key_S){//Qt::Key_S){
             key_dir=BAS; joueur=2;
         }
     }

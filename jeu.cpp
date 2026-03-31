@@ -15,6 +15,9 @@ Jeu::Jeu()
     mort2 = false;
     mangeur=0;
     score=0; score2=0;
+    drillActive1 = false; drillActive2=false;
+    drillTimer1=0; drillTimer2=0;
+
 }
 
 Jeu::Jeu(const Jeu &jeu) : snake(jeu.snake), snake2(jeu.snake2)
@@ -28,6 +31,9 @@ Jeu::Jeu(const Jeu &jeu) : snake(jeu.snake), snake2(jeu.snake2)
     mort2     = jeu.mort2;
     mangeur   = jeu.mangeur;
     score2    = jeu.score2;
+    drillActive1 = jeu.drillActive1; 
+    drillActive2= jeu.drillActive2;
+    drillTimer1=jeu.drillTimer1; drillTimer2=jeu.drillTimer1;
     
     if (jeu.terrain!=nullptr)
     {
@@ -74,6 +80,9 @@ Jeu &Jeu::operator=(const Jeu &jeu)
     score     = jeu.score;
     score2    = jeu.score2;
     mangeur   =jeu.mangeur;
+    drillActive1 = jeu.drillActive1; 
+    drillActive2= jeu.drillActive2;
+    drillTimer1=jeu.drillTimer1; drillTimer2=jeu.drillTimer1;    
 
     if (jeu.terrain!=nullptr)
     {
@@ -116,6 +125,9 @@ bool Jeu::init()
 	largeur = 20;
 	hauteur = 15;
     score=0; score2=0;
+    drillActive1 =false;  drillActive2= false;
+    drillTimer1=0; drillTimer2=0;
+    
 	terrain = new Case[largeur*hauteur];
 
     int x, y;
@@ -153,11 +165,20 @@ bool Jeu::init()
     return true;
 }
 
-void Jeu::evolue()
-{    
+void Jeu::evolue(){    
+
     //typedef enum {GAUCHE, HAUT,DROITE, BAS} Direction;
     int depX[] = {-1, 0, 1, 0};
     int depY[] = {0, -1, 0, 1};
+
+    //drill countdown 
+    if (drillTimer1 > 0) {
+        drillTimer1--;
+    if (drillTimer1 == 0) drillActive1 = false;
+    }else if (drillTimer2 > 0) {
+        drillTimer2--;
+    if (drillTimer2 == 0) drillActive2 = false;
+    }
 
     // calcule la prochaine case de chaque serpent
     Position pos1 = snake.front();
@@ -194,7 +215,12 @@ void Jeu::evolue()
         {
             if (terrain[pos1.y * largeur + pos1.x] == MUR)
             {
-                mort1 = true;
+                if (drillActive1) {
+                    // on mange le mur
+                    terrain[pos1.y * largeur + pos1.x] = VIDE; 
+                } else {
+                    mort1 = true;
+                }
             }
             else
             {
@@ -216,7 +242,12 @@ void Jeu::evolue()
         {
             if (terrain[pos2.y * largeur + pos2.x] == MUR)
             {
-                mort2 = true;
+                if (drillActive2) {
+                    // on mange le mur
+                    terrain[pos2.y * largeur + pos2.x] = VIDE; 
+                } else {
+                    mort2 = true;
+                }
             }
             else
             {
@@ -413,7 +444,19 @@ Direction Jeu::getDirection() const
     return dirSnake;
 }
 
-Direction Jeu::getDirection2() const
-{
+Direction Jeu::getDirection2() const{
     return dirSnake2;
+}
+
+bool Jeu::getDrill1() const{return drillActive1;}
+bool Jeu::getDrill2() const{return drillActive2;}
+
+void Jeu::setDrillActive(){
+    if (mangeur == 0) {
+        drillActive1 = true;
+        drillTimer1 = 30; // Lasts for 50 frames
+    } else if (mangeur==1) {
+        drillActive2 = true;
+        drillTimer2 = 30;
+    }
 }

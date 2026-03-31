@@ -16,9 +16,11 @@ class Jeu
     std::list<Position> snake2;
     Direction dirSnake, dirSnake2;
     bool mort1, mort2;
-    bool mangeur; //who ate the fruit?? 0-> 1, 1->2
+    bool mangeur; //who ate the fruit?? 0, personne 1-> 1, 2->2
     int score, score2;
     Fruit *currFruit; // bool mangeFruit;
+    bool drillActive1, drillActive2;
+    int drillTimer1, drillTimer2;
 
   public:
     Jeu();
@@ -73,6 +75,12 @@ class Jeu
     // Retourne la direction
     Direction getDirection() const;
     Direction getDirection2() const;
+
+    bool getDrill1() const;
+    bool getDrill2() const;
+
+    void setDrillActive();
+
 
 };
 
