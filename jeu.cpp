@@ -102,8 +102,8 @@ Jeu &Jeu::operator=(const Jeu &jeu)
     return *this;
 }
 
-bool Jeu::init()
-{
+bool Jeu::init(){
+
 	const char terrain_defaut[15][21] = {
 		"####..##############",
 		"#........##........#",
@@ -141,8 +141,7 @@ bool Jeu::init()
     // serpent 1 : part de la droite
     snake.clear();
     Position t1(15, 7);
-    for (int i = 0; i < 5; i++)
-    {
+    for (int i = 0; i < 5; i++){
         snake.push_back(t1);
         t1.x--;
     }
@@ -150,11 +149,11 @@ bool Jeu::init()
     // serpent 2 : part de la gauche
     snake2.clear();
     Position t2(4, 9);
-    for (int i = 0; i < 5; i++)
-    {
+    for (int i = 0; i < 5; i++){
         snake2.push_back(t2);
         t2.x++;
     }
+
     dirSnake  = DROITE;
     dirSnake2 = GAUCHE;
     mort1 = false;
@@ -226,7 +225,7 @@ void Jeu::evolue(){
             {
                 for (const Position &s : snake2)
                     if (s == pos1) { mort1 = true; break; }
-
+                
                 if (!mort1)
                 {
                     auto fin = snake.end();
@@ -271,7 +270,7 @@ void Jeu::evolue(){
         if(pos1!=currFruit->getPos()){
             snake.pop_back();
         }else{ //procedure for eaten fruit (varies for fruit)
-            mangeur=0;
+            mangeur=0; //queue
             currFruit->onEaten(*this);
             this->new_fruit();
         }
@@ -376,7 +375,6 @@ void Jeu::upScore(){
 
 void Jeu::new_fruit() {
     //nettoyer la memoire
-
     if (currFruit != nullptr) {
         delete currFruit;
     }

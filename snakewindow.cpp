@@ -14,8 +14,7 @@ const QStringList SnakeWindow::paths={
     "./data/strawberry_snake.png",
 };
 
-SnakeWindow::SnakeWindow(QWidget *pParent, Qt::WindowFlags flags):QFrame(pParent, flags)
-{
+SnakeWindow::SnakeWindow(QWidget *pParent, Qt::WindowFlags flags):QFrame(pParent, flags){
     // Taille des cases en pixels
     int largeurCase, hauteurCase;
     pixmapSnake = new QPixmap[6]; // Manual allocation
@@ -56,6 +55,7 @@ SnakeWindow::SnakeWindow(QWidget *pParent, Qt::WindowFlags flags):QFrame(pParent
 
     resize(jeu.getNbCasesX()*largeurCase, jeu.getNbCasesY()*hauteurCase + HAUTEUR_BOUTONS);
 
+    //maria
     QTimer *timer =new QTimer(this);
     connect(timer, &QTimer::timeout, this, &SnakeWindow::handleTimer);
     timer->start(100);
